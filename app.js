@@ -11,7 +11,8 @@ var express = require('express')
   , path = require('path')
   , cron = require('./cron');
 
-mongoose.connect('mongodb://localhost/hnmention');
+var mongo = process.env.MONGOHQ_URL || 'mongodb://localhost/hnmention';
+mongoose.connect(mongo);
 
 // start the cron job.
 cron.commentsProcessor.start();
@@ -34,7 +35,11 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
-app.configure('development', function(){
+app.configure('development', function() {
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.configure('production', function() {
   app.use(express.errorHandler());
 });
 
@@ -46,6 +51,7 @@ var csrf = function(req, res, next) {
 app.get('/', csrf, routes.index);
 app.post('/', csrf, routes.post);
 
-http.createServer(app).listen(app.get('port'), function(){
+var port = process.env.PORT || 3000;
+http.createServer(app).listen(port, function(){
   console.log("Express server listening on port " + app.get('port'));
 });

@@ -1,8 +1,5 @@
 var cronJob = require('cron').CronJob
-  , mongoose = require('mongoose')
   , request = require('request');
-
-mongoose.connect('mongodb://localhost/hnmention');
 
 var User = require('./models/user.js')
   , Comment = require('./models/comment.js');
@@ -29,7 +26,7 @@ var processComment = function(comment, mentions) {
   });
 }
 
-exports.processComments = function(comments) {
+var processComments = function(comments) {
   comments.forEach(function(comment) {
     var mentions = comment.content.match(/@([\w-]+)/gm);
 

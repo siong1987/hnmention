@@ -16,6 +16,7 @@ mongoose.connect(mongo);
 
 // start the cron job.
 cron.commentsProcessor.start();
+cron.pingOwn.start();
 
 var app = express();
 

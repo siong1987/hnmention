@@ -47,3 +47,15 @@ exports.commentsProcessor = new cronJob({
     });
   }
 });
+
+// To make sure that heroku won't shut down the server.
+exports.pingOwn = new cronJob({
+  cronTime: '00 */1 * * * *',
+  onTick: function() {
+    request('http://www.hnmention.com/', function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log("Pinging own server...");
+      };
+    });
+  }
+});

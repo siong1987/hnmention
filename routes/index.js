@@ -50,7 +50,7 @@ exports.post = function(req, res) {
       });
     });
 
-    res.render('index', { notice: "Your form has been submitted. Check your email for confirmation." });
+    res.render('index', { notice: "Your request has been submitted. Check your email for confirmation." });
   }
 };
 

@@ -1,0 +1,19 @@
+@media screen and (max-width: 767px) {
+  .container {
+     padding: 0 10px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    margin-left: 180px;
+  }
+}
+
+.header {
+  margin-bottom: 40px;
+}
+
+.control-group {
+  margin-bottom: 20px;
+}

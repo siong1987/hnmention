@@ -5,22 +5,16 @@
 
 var express = require('express')
   , expressValidator = require('express-validator')
+  , mongoose = require('mongoose')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path')
-  , cronJob = require('cron').CronJob;
+  , cron = require('./cron');
 
-var commentsProcessor = new cronJob({
-  cronTime: '00 */5 * * * *',
-  onTick: function() {
-    var dd = new Date();
-    var hh = dd.getHours();
-    var mm = dd.getMinutes();
-    var ss = dd.getSeconds();
-    console.log("The time is now: " + hh + ":" + mm + ":" + ss);
-  }
-});
-commentsProcessor.start();
+mongoose.connect('mongodb://localhost/hnmention');
+
+// start the cron job.
+cron.commentsProcessor.start();
 
 var app = express();
 
@@ -50,21 +44,7 @@ var csrf = function(req, res, next) {
 }
 
 app.get('/', csrf, routes.index);
-
-app.post('/', csrf, function(req, res) {
-  req.assert('email', 'Email required.').notEmpty();
-  req.assert('email', 'Valid email required.').isEmail();
-
-  req.assert('username', 'Username required.').notEmpty();
-  req.assert('username', 'Valid username required.').is(/^[A-Za-z\d-\_]+$/);
-
-  var errors = req.validationErrors();
-  if (errors) {
-    res.render('index', { errors: errors });
-  } else {
-    res.render('index', { notice: "Your form has been submitted. Check your email for confirmation." });
-  }
-});
+app.post('/', csrf, routes.post);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

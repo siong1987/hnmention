@@ -1,0 +1,21 @@
+p Hey 
+  = user.fullUsername
+  ,
+
+p Someone mentions you on Hacker News:
+
+div(style="margin-left: 20px;")
+  != comment.content
+
+  p by 
+    = comment.user
+
+p
+  a(href="https://news.ycombinator.com/item?id=" + comment.id) Check it out
+
+p HNMention is created by the team behind 
+  a(href="http://www.cupidwithfriends.com/") CupidWithFriends
+  .
+
+p
+  a(href="http://hnmention.com/unsubscribe/" + user.id) Unsubscribe

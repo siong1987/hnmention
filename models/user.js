@@ -3,6 +3,7 @@ var mongoose = require('mongoose')
  
 var userSchema = new Schema({
   username: { type: String },
+  fullUsername: { type: String },
   email: { type: String },
   subscribed: { type: Boolean, default: false }
 });

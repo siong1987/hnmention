@@ -50,6 +50,8 @@ var csrf = function(req, res, next) {
 }
 
 app.get('/', csrf, routes.index);
+app.get('/confirm/:id', csrf, routes.confirm);
+app.get('/unsubscribe/:id', csrf, routes.unsubscribe);
 app.post('/', csrf, routes.post);
 
 var port = process.env.PORT || 3000;

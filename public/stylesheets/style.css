@@ -1,5 +1,5 @@
 @media screen and (max-width: 767px) {
-  .container {
+  #wrap, #footer {
      padding: 0 10px;
   }
 }
@@ -16,4 +16,51 @@
 
 .control-group {
   margin-bottom: 20px;
+}
+
+html, body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+}
+
+#main {
+  overflow:auto;
+  padding-bottom: 40px;
+}
+
+#footer {
+  position: relative;
+  margin-top: -40px;
+  height: 40px;
+  clear: both;
+}
+
+#footer span {
+  margin-right: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .footer {
+    margin-left: 180px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #footer {
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Opera Fix */
+body:before {
+  content: "";
+  height: 100%;
+  float: left;
+  width: 0;
+  margin-top: -32767px;/
 }

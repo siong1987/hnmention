@@ -24,6 +24,7 @@ if ( cluster.isMaster ) {
   mongoose.connect(mongo);
 
   var app = express();
+  var secret = process.env.SECRET || 'crazy session key';
 
   app.configure(function(){
     app.set('port', process.env.PORT || 3000);
@@ -32,7 +33,7 @@ if ( cluster.isMaster ) {
     app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.cookieParser());
-    app.use(express.session({ secret: 'crazy session key' }));
+    app.use(express.session({ secret: secret }));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(expressValidator);
